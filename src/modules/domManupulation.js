@@ -1,3 +1,6 @@
+import { placeShipRandomly } from "./gameLoop";
+import { Gameboard } from "./gameBoard";
+
 function createDiv(className) {
   const div = document.createElement("div");
   div.setAttribute("class", `${className}`);
@@ -19,7 +22,7 @@ class DomManipulation {
           column.classList.add("attacked");
         } else if (cell === 10) {
           column.classList.add("ship", "attacked");
-        } else if (cell !== 0) {
+        } else if (cell !== 0 && cell !== "X") {
           column.classList.add("ship");
         }
         row.appendChild(column);
@@ -50,6 +53,24 @@ class DomManipulation {
       .filter((className) => className.startsWith("row"))[0]
       .split("_")[1];
     return [xPos, yPos];
+  }
+
+  static dialogBoxCreator(playerBoard, dialog) {
+    dialog.showModal();
+    const boardEle = dqs("#dialog-box .boards .playerBoard");
+    DomManipulation.playerBoardRenderer(playerBoard.board, boardEle);
+    console.log(boardEle, dialog);
+    const ships = [1, 2, 2, 3];
+
+    let clicked = false;
+    boardEle.addEventListener("click", () => {
+      clicked ? (clicked = false) : (clicked = true);
+    });
+
+    boardEle.addEventListener("mouseover", (event) => {
+      const { target } = event;
+      target.style.backgroundColor = "pink";
+    });
   }
 }
 export { DomManipulation, dqs, createDiv };

@@ -37,19 +37,40 @@ class Gameboard {
     const shipObj = new Ship(shipLength);
     this.shipsList.push(shipObj);
     const index = this.shipsList.indexOf(shipObj) + 1;
+    const coordinates = [];
 
     if (axis === "X") {
       for (let i = column; i < column + shipLength; i += 1) {
-        this.board[row][i] = index;
-        this.blockAdjacentSide(row, i);
+        coordinates.push([row, i]);
+      }
+      const check = coordinates.every(
+        (element) => this.board[element[0]][element[1]] === 0,
+      ); // check if all coordinates are 0;
+
+      if (check) {
+        coordinates.forEach((element) => {
+          this.board[element[0]][element[1]] = index;
+          this.blockAdjacentSide(element[0], element[1]);
+        });
+        return 1;
       }
     } else {
       for (let i = row; i < row + shipLength; i += 1) {
-        this.board[i][column] = index;
-        this.blockAdjacentSide(i, column);
+        coordinates.push([i, column]);
+      }
+      const check = coordinates.every(
+        (element) => this.board[element[0]][element[1]] === 0,
+      ); // check if all coordinates are 0;
+
+      if (check) {
+        coordinates.forEach((element) => {
+          this.board[element[0]][element[1]] = index;
+          this.blockAdjacentSide(element[0], element[1]);
+        });
+        return 1;
       }
     }
-    return shipObj;
+    return 0;
   }
 
   receiveAttack(xPos, yPos) {
