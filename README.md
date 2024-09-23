@@ -37,10 +37,10 @@ A classic Battleship game implemented in JavaScript. Players take turns guessing
 ## Screenshots
 
 ### Game Board
-![Game Board](link-to-your-image)
+![Game Board](previews/240924_03h42m56s_screenshot.png)
 
 ### Hit and Miss Indicators
-![Hit and Miss](link-to-your-image)
+![Hit and Miss](previews/240924_03h41m41s_screenshot.png)
 
 
 ## Contributing
